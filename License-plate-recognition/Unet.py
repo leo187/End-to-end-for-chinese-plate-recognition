@@ -4,20 +4,25 @@ import numpy as np
 import os
 import cv2
 from tensorflow.keras import layers, losses, models
+from configparser import ConfigParser
+
 
 
 def unet_train():
     height = 512
     width = 512
-    path = 'D:/desktop/unet_datasets/'
-    input_name = os.listdir(path + 'train_image')
+    ini_file = "./config.ini"
+    cfg = ConfigParser()
+    cfg.read(ini_file)
+    path = cfg['router']['unet_path']
+    input_name = os.listdir(path + 'image')
     n = len(input_name)
     print(n)
     X_train, y_train = [], []
     for i in range(n):
         print("正在读取第%d张图片" % i)
-        img = cv2.imread(path + 'train_image/%d.png' % i)
-        label = cv2.imread(path + 'train_label/%d.png' % i)
+        img = cv2.imread(path + 'image/%d.png' % i)
+        label = cv2.imread(path + 'label/%d.png' % i)
         X_train.append(img)
         y_train.append(label)
     X_train = np.array(X_train)
