@@ -14,7 +14,7 @@ def unet_train():
     ini_file = "./config.ini"
     cfg = ConfigParser()
     cfg.read(ini_file)
-    path = cfg['router']['unet_path']
+    path = cfg['router']['unet_path'].replace("\'","")
     input_name = os.listdir(path + 'image')
     n = len(input_name)
     print(n)

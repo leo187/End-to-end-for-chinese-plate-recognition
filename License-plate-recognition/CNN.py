@@ -19,7 +19,7 @@ def cnn_train():
     ini_file = "./config.ini"
     cfg = ConfigParser()
     cfg.read(ini_file)
-    path = cfg['router']['cnn_path']
+    path = cfg['router']['cnn_path'].replace("\'","")
     size = int(cfg['router']['cnn_size'])
     pic_name = sorted(os.listdir(path))
     n = len(pic_name)
