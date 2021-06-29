@@ -25,8 +25,8 @@ def cnn_train():
     n = len(pic_name)
     X_train, y_train = [], []
     for i in range(n):
-        print("正在读取第%d张图片" % i+pic_name[i])
         if ('DS_Store' not in pic_name[i]):
+            print("正在读取第%d张图片" % i + pic_name[i])
             img = cv2.imdecode(np.fromfile(path + pic_name[i], dtype=np.uint8), -1)  # cv2.imshow无法读取中文路径图片，改用此方式
             label = [char_dict[name] for name in pic_name[i][0:size]]  # 图片名前7位为车牌标签
             X_train.append(img)
