@@ -19,7 +19,7 @@ class Window:
         self.ww = ww
         self.wh = wh
         self.win.geometry("%dx%d+%d+%d" % (ww, wh, 200, 50))  # 界面启动时的初始位置
-        self.win.title("车牌定位，矫正和识别软件---by DuanshengLiu")
+        self.win.title("车牌识别")
         self.img_src_path = None
 
         self.label_src = Label(self.win, text='原图:', font=('微软雅黑', 13)).place(x=0, y=0)
