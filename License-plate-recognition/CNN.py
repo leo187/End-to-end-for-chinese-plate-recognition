@@ -19,18 +19,22 @@ def cnn_train():
     ini_file = "./config.ini"
     cfg = ConfigParser()
     cfg.read(ini_file)
-    path = cfg['router']['cnn_path'].replace("\'","")
     size = int(cfg['router']['cnn_size'])
-    pic_name = sorted(os.listdir(path))
-    n = len(pic_name)
-    X_train, y_train = [], []
-    for i in range(n):
-        if ('DS_Store' not in pic_name[i] and len(pic_name[i].split('.')[0])==size):
-            print("正在读取第%d张图片" % i + pic_name[i])
-            img = cv2.imdecode(np.fromfile(path + pic_name[i], dtype=np.uint8), -1)  # cv2.imshow无法读取中文路径图片，改用此方式
-            label = [char_dict[name] for name in pic_name[i][0:size]]  # 图片名前7位为车牌标签
-            X_train.append(img)
-            y_train.append(label)
+    indexAll = 0
+    for index in range(40):
+        if(index != 200):
+            path = cfg['router']['cnn_path'].replace("\'", "")+'multi'+str(index)+'/'
+            pic_name = sorted(os.listdir(path))
+            n = len(pic_name)
+            X_train, y_train = [], []
+            for i in range(n):
+                if ('DS_Store' not in pic_name[i] and len(pic_name[i].split('.')[0])==size ):
+                    print("正在读取第%d张图片" % indexAll + pic_name[i])
+                    indexAll +=1
+                    img = cv2.imdecode(np.fromfile(path + pic_name[i], dtype=np.uint8), -1)  # cv2.imshow无法读取中文路径图片，改用此方式
+                    label = [char_dict[name] for name in pic_name[i][0:size]]  # 图片名前7位为车牌标签
+                    X_train.append(img)
+                    y_train.append(label)
     X_train = np.array(X_train)
     y_train = [np.array(y_train)[:, i] for i in range(size)]  # y_train是长度为7的列表，其中每个都是shape为(n,)的ndarray，分别对应n张图片的第一个字符，第二个字符....第七个字符
 
