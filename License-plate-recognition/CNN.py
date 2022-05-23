@@ -21,12 +21,12 @@ def cnn_train():
     cfg.read(ini_file)
     size = int(cfg['router']['cnn_size'])
     indexAll = 0
-    for index in range(40):
-        if(index != 200):
+    X_train, y_train = [], []
+    for index in range(56):
+        if(index != 220):
             path = cfg['router']['cnn_path'].replace("\'", "")+'multi'+str(index)+'/'
             pic_name = sorted(os.listdir(path))
             n = len(pic_name)
-            X_train, y_train = [], []
             for i in range(n):
                 if ('DS_Store' not in pic_name[i] and len(pic_name[i].split('.')[0])==size ):
                     print("正在读取第%d张图片" % indexAll + pic_name[i])
